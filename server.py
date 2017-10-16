@@ -42,12 +42,11 @@ class BrowseHandler(web.RequestHandler):
                     entries_html += self.FILEITEM.format(link=link, itype='folder', content=dirname, download='')
                 for filename in filenames:
                     link = '/' + os.path.join(uri, filename)
-                    entries_html += self.FILEITEM.format(link=link, itype='file', content=filename, download=self.DOWNLOAD_ICON.format(link))
+                    download_link = self.DOWNLOAD_ICON.format(link)
+                    entries_html += self.FILEITEM.format(link=link, itype='file', content=filename, download=download_link)
                 break
 
             self.finish(self.INDEX.format(entries_html))
-        elif os.path.islink(path):
-            self.finish('LINK: ' + uri)
         elif os.path.isfile(path):
             self.set_header('Content-Type', 'application/octet-stream')
             self.set_header('Content-Disposition', 'attachment; filename=' + path.split('/')[-1])
