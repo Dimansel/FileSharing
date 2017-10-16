@@ -15,13 +15,19 @@ a
 .l-head, .l-footer, .l-main
   color: $main-fnt-color
   background-color: $main-color
+  box-shadow: 8px 8px 3px rgba($shadow-color,0.5)
 
 .l-menu
   border: 1px $menu-border solid
-.l-copyright
+
 .file
   text-decoration: none
-  background-color: rgba($file-color, 0.5)
+  background-color: rgba($sec-color, 0.5)
   list-style: none
   &:hover
-    background-color: rgba($file-color, 0.2)
+    background-color: rgba($sec-color, 0.2)
+
+.l-icon-github
+  background-image: url("/img/github.svg")
+  &:hover
+    background-color: white

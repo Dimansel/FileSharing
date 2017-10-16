@@ -286,20 +286,25 @@ template {
 .l-head {
   top: 0;
   flex-direction: column;
-  align-items: center;
-  position: sticky;
-  position: -webkit-sticky; }
+  align-items: center; }
 
 .l-main {
   margin: 10px auto;
   max-width: 960px; }
 
 .l-footer {
-  left: 0px;
+  left: 0;
+  bottom: 0;
   width: 100%;
-  bottom: 0px;
   padding: 3px;
-  position: relative; }
+  position: sticky; }
+
+.l-icon-github {
+  height: 32px;
+  width: 32px;
+  border-radius: 16px;
+  display: block;
+  background-size: contain; }
 
 .l-menu {
   width: 100%;
@@ -312,7 +317,8 @@ template {
 /*---------------RESPONISVE----------------------*/
 /*---------------MODULES-------------------------*/
 .file {
-  display: inline-flex;
+  font-size: 16px;
+  display: flex;
   justify-content: space-between;
   width: 100%;
   padding: 5px;
@@ -322,25 +328,31 @@ template {
 /*-----------------THEME-------------------------*/
 /*-------------VARIABLES-------------------------*/
 body {
-  background-color: #f1f0d5; }
+  background-color: rgba(224, 242, 207, 0.5); }
 
 a {
   color: #000000;
   text-decoration: none; }
   a:hover {
-    color: #d6971d;
+    color: #df9b26;
     text-decoration: none; }
 
 .l-head, .l-footer, .l-main {
   color: #000000;
-  background-color: #f6e1cb; }
+  background-color: #e0f2cf;
+  box-shadow: 8px 8px 3px rgba(136, 136, 136, 0.5); }
 
 .l-menu {
-  border: 1px #0b0a08 solid; }
+  border: 1px #759952 solid; }
 
 .file {
   text-decoration: none;
-  background-color: rgba(175, 161, 39, 0.5);
+  background-color: rgba(117, 153, 82, 0.5);
   list-style: none; }
   .file:hover {
-    background-color: rgba(175, 161, 39, 0.2); }
+    background-color: rgba(117, 153, 82, 0.2); }
+
+.l-icon-github {
+  background-image: url("/img/github.svg"); }
+  .l-icon-github:hover {
+    background-color: white; }
