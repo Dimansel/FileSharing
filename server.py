@@ -57,6 +57,7 @@ class BrowseHandler(web.RequestHandler):
                 self.write(bytes(data[i:i + self.chunk_size]))
                 await self.flush()
             self.finish()
+            return
         else:
             raise web.HTTPError(400)
 
