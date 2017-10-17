@@ -15,3 +15,15 @@ function goTo(path){
     }
   }
 }
+
+function switchBreadcrumb(){
+  var bcList = document.getElementsByClassName("l-bcList")[0]
+  var bcInput = document.getElementsByClassName("l-bcInput")[0]
+  if (bcList.className == "l-bcList is-hidden"){
+    bcList.setAttribute("class", "l-bcList");
+    bcInput.setAttribute("class", "l-bcInput is-hidden");
+  }else{
+    bcList.setAttribute("class", "l-bcList is-hidden");
+    bcInput.setAttribute("class", "l-bcInput");
+  }
+}
