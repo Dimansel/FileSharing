@@ -18,7 +18,7 @@ class IndexHandler(web.RequestHandler):
 class DownloadHandler(web.RequestHandler):
     chunk_size = 256 * 1024
 
-    
+
     async def get(self, uri):
         await self.post(uri)
         return
@@ -100,8 +100,13 @@ class BrowseHandler(web.RequestHandler):
         local_path = os.path.normpath(local_path)
         if local_path == '.':
             local_path = ''
-        parent = os.path.join(local_path, '..')
-        entries_html = self.FILEITEM.format(onclick=self.ONCLICK.format(parent), itype='folder', content='..', download='')
+
+        entries_html = ''
+
+        if local_path:
+            parent = os.path.join(local_path, '..')
+            entries_html = self.FILEITEM.format(onclick=self.ONCLICK.format(parent), itype='folder', content='..', download='')
+
         for (dirpath, dirnames, filenames) in os.walk(path):
             for dirname in dirnames:
                 act = self.ONCLICK.format(os.path.join(local_path, dirname))
