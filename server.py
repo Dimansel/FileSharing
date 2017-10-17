@@ -1,6 +1,10 @@
 import os
 import os.path
+import json
 from tornado import web, ioloop
+
+
+FILES_PATH = '/home/elliptic/public_access/'
 
 
 class IndexHandler(web.RequestHandler):
@@ -11,46 +15,26 @@ class IndexHandler(web.RequestHandler):
         self.get()
 
 
-class BrowseHandler(web.RequestHandler):
-    INDEX = open('app/index.html', 'r').read()
-    FILEITEM = open('app/item-template.html').read()
-    DOWNLOAD_ICON = '<a href="{}"><i class="fa fa-download"></i></a>'
-    FILES_PATH = '/home/elliptic/public_access/'
+class DownloadHandler(web.RequestHandler):
     chunk_size = 256 * 1024
 
-
-    def get_buf(self, path):
-        buf = bytearray(os.path.getsize(path))
-        with open(path, 'rb') as f:
-            f.readinto(buf)
-        return buf
-
-    async def get(self, uri):
-        if not uri:
-            uri = '/'
-        path = self.FILES_PATH + uri
-        uri = uri.lstrip('/')
-        if not uri.startswith('files'):
-            uri = os.path.join('files', uri)
     
+    async def get(self, uri):
+        await self.post(uri)
+        return
+
+    async def post(self, uri):
+        local_path = '/' + uri
+        path = FILES_PATH + local_path
+
         if not os.path.exists(path):
             raise web.HTTPError(404)
-    
-        if os.path.isdir(path):
-            parent = os.path.join(uri, '..')
-            entries_html = self.FILEITEM.format(link='/' + parent, itype='folder', content='..', download='')
-            for (dirpath, dirnames, filenames) in os.walk(path):
-                for dirname in dirnames:
-                    link = '/' + os.path.join(uri, dirname)
-                    entries_html += self.FILEITEM.format(link=link, itype='folder', content=dirname, download='')
-                for filename in filenames:
-                    link = '/' + os.path.join(uri, filename)
-                    download_link = self.DOWNLOAD_ICON.format(link)
-                    entries_html += self.FILEITEM.format(link=link, itype='file', content=filename, download=download_link)
-                break
 
-            self.finish(self.INDEX.format(entries_html))
-        elif os.path.isfile(path):
+        path = os.path.normpath(path)
+        if not path.startswith(FILES_PATH):
+            raise web.HTTPError(400)
+
+        if os.path.isfile(path):
             self.set_header('Content-Type', 'application/octet-stream')
             self.set_header('Content-Disposition', 'attachment; filename=' + path.split('/')[-1])
 
@@ -63,16 +47,83 @@ class BrowseHandler(web.RequestHandler):
         else:
             raise web.HTTPError(400)
 
-    async def post(self, uri):
-        await self.get(uri)
+    def get_buf(self, path):
+        buf = bytearray(os.path.getsize(path))
+        with open(path, 'rb') as f:
+            f.readinto(buf)
+        return buf
+
+
+class BrowseHandler(web.RequestHandler):
+    INDEX = open('app/index.html', 'r').read()
+    FILEITEM = open('app/item-template.html').read()
+    ONCLICK = 'onclick="goTo(\'{}\')"'
+    DOWNLOAD_ICON = '<a href="{}"><i class="fa fa-download"></i></a>'
+
+
+    async def get(self):
+        await self.send_response(True)
         return
+
+    async def post(self):
+        await self.send_response(False)
+        return
+
+    async def send_response(self, GET):
+        if GET:
+            entries_html = self.get_entries_html(FILES_PATH, '')
+            self.finish(self.INDEX.format(entries_html))
+            return
+
+        local_path = self.get_body_argument('path', '')
+        path = FILES_PATH + local_path
+
+        if not os.path.exists(path):
+            resp = {'error': True, 'html': None, 'error_msg': 'The directory does not exist'}
+            self.finish(json.dumps(resp))
+
+        path = os.path.normpath(path)
+        if not (path + '/').startswith(FILES_PATH):
+            path = FILES_PATH
+            local_path = ''
+
+        if os.path.isdir(path):
+            entries_html = self.get_entries_html(path, local_path)
+            resp = {'error': False, 'html': entries_html}
+            self.finish(json.dumps(resp))
+
+        else:
+            resp = {'error': True, 'html': None, 'error_msg': 'The location is forbidden'}
+            self.finish(json.dumps(resp))
+
+    def get_entries_html(self, path, local_path):
+        local_path = os.path.normpath(local_path)
+        if local_path == '.':
+            local_path = ''
+        parent = os.path.join(local_path, '..')
+        entries_html = self.FILEITEM.format(onclick=self.ONCLICK.format(parent), itype='folder', content='..', download='')
+        for (dirpath, dirnames, filenames) in os.walk(path):
+            for dirname in dirnames:
+                act = self.ONCLICK.format(os.path.join(local_path, dirname))
+                entries_html += self.FILEITEM.format(onclick=act, itype='folder', content=dirname, download='')
+            for filename in filenames:
+                link = os.path.join('download', local_path, filename)
+                download_link = self.DOWNLOAD_ICON.format(link)
+                entries_html += self.FILEITEM.format(onclick='', itype='file', content=filename, download=download_link)
+            break
+
+        return entries_html
 
 
 app = web.Application([
     (r'/', IndexHandler),
     (r'/(favicon.ico)', web.StaticFileHandler, {'path': 'app/img/'}),
-    (r'/static/(.*)', web.StaticFileHandler, {'path': 'app/'}),
-    (r'/files(/.*)?', BrowseHandler)
+    (r'/css/(.*)', web.StaticFileHandler, {'path': 'app/css/'}),
+    (r'/fonts/(.*)', web.StaticFileHandler, {'path': 'app/fonts/'}),
+    (r'/img/(.*)', web.StaticFileHandler, {'path': 'app/img/'}),
+    (r'/js/(.*)', web.StaticFileHandler, {'path': 'app/js/'}),
+    (r'/files', BrowseHandler),
+    (r'/download/(.+)', DownloadHandler)
 ])
 
 
