@@ -64,7 +64,7 @@ class BrowseHandler(web.RequestHandler):
             raise web.HTTPError(400)
 
     async def post(self, uri):
-        self.get(uri)
+        await self.get(uri)
         return
 
 
