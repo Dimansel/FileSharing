@@ -21,6 +21,28 @@
   </header>
   <section class="l-main">
     <div class="l-menu">
+      <div class="l-breadcrumb">
+        <nav class="l-bcList is-hidden">
+          <a href="">folder 1</a>
+          <i class="fa fa-chevron-right"></i>
+          <a href="">folder 2</a>
+          <i class="fa fa-chevron-right"></i>
+          <a href="">folder 3</a>
+          <i class="fa fa-chevron-right"></i>
+          <a href="">folder 4</a>
+          <i class="fa fa-chevron-right"></i>
+          <a href="">folder 5</a>
+        </nav>
+        <input class="l-bcInput" type="text" name="dirName" value="">
+        <div class="l-breadcrumb-menu">
+          <button onclick="switchBreadcrumb()" type="button" name="button">
+            <i class="fa fa-exchange" aria-hidden="true"></i>
+          </button>
+          <button type="button" name="button">
+            Go to<i class="fa fa-arrow-right"></i>
+          </button>
+        </div>
+    </div>
       <hr>
       <ul id="nav-files">
         {}
