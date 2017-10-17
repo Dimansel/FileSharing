@@ -2,6 +2,12 @@
 body {
   font-size: 20px; }
 
+hr {
+  margin: 0 0 8px; }
+
+ul {
+  padding: 0px; }
+
 /*-----------------RESET-------------------------*/
 html {
   box-sizing: border-box;
@@ -289,6 +295,7 @@ template {
   align-items: center; }
 
 .l-main {
+  flex-direction: column;
   margin: 10px auto;
   max-width: 960px; }
 
@@ -353,6 +360,6 @@ a {
     background-color: rgba(117, 153, 82, 0.2); }
 
 .l-icon-github {
-  background-image: url("/static/img/github.svg"); }
+  background-image: url("/img/github.svg"); }
   .l-icon-github:hover {
     background-color: white; }
