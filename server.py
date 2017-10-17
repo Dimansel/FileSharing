@@ -7,6 +7,9 @@ class IndexHandler(web.RequestHandler):
     def get(self):
         self.redirect('/files')
 
+    def post(self):
+        self.get()
+
 
 class BrowseHandler(web.RequestHandler):
     INDEX = open('app/index.html', 'r').read()
@@ -59,6 +62,10 @@ class BrowseHandler(web.RequestHandler):
             return
         else:
             raise web.HTTPError(400)
+
+    async def post(self, uri):
+        self.get(uri)
+        return
 
 
 app = web.Application([
