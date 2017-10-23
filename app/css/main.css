@@ -152,7 +152,6 @@ a,
 area,
 button,
 [role="button"],
-input,
 label,
 select,
 summary,
@@ -186,10 +185,7 @@ button,
 select,
 optgroup,
 textarea {
-  margin: 0;
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit; }
+  margin: 0; }
 
 button,
 input {
@@ -282,14 +278,10 @@ body {
 ul {
   padding: 0px; }
 
-input {
-  padding: 0px;
-  font-size: 12px;
-  line-height: initial; }
-
 button {
   margin: 0px 5px;
-  padding: 0px; }
+  padding: 5px;
+  white-space: nowrap; }
 
 /*------------------LAYOUT-------------------------*/
 .l-head, .l-main, .l-footer {
@@ -353,9 +345,11 @@ button {
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
-          justify-content: space-between; }
+          justify-content: space-between;
+  height: 30px; }
   .l-breadcrumb > .l-bcInput {
-    width: 100%; }
+    width: 100%;
+    font-size: inherit; }
   .l-breadcrumb > .l-breadcrumb-menu {
     display: -webkit-box;
     display: -webkit-flex;
@@ -373,10 +367,10 @@ button {
 /*---------------MODULES-------------------------*/
 .file {
   font-size: 16px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
@@ -384,6 +378,10 @@ button {
   width: 100%;
   padding: 5px;
   margin-bottom: 5px; }
+  .file > a {
+    text-indent: 2px;
+    display: block;
+    word-break: break-all; }
 
 /*--------------STATES-------------------------*/
 .is-hidden {
