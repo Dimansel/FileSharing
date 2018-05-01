@@ -1,1 +1,1 @@
-FILES_PATH = '/home/elliptic/public_access/'
+FILES_PATH = '/home/maxwell/Downloads'
