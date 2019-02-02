@@ -1,1 +1,0 @@
-FILES_PATH = '/home/maxwell/Downloads'
