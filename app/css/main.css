@@ -1,10 +1,7 @@
-/*------------------BASE-------------------------*/
-body {
-  font-size: 20px; }
-
 /*-----------------RESET-------------------------*/
 html {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   font-family: sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
@@ -15,7 +12,8 @@ html {
 *,
 *::before,
 *::after {
-  box-sizing: inherit; }
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit; }
 
 @-ms-viewport {
   width: device-width; }
@@ -36,7 +34,8 @@ body {
   outline: none !important; }
 
 hr {
-  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
   height: 0;
   overflow: visible; }
 
@@ -153,7 +152,6 @@ a,
 area,
 button,
 [role="button"],
-input,
 label,
 select,
 summary,
@@ -187,10 +185,7 @@ button,
 select,
 optgroup,
 textarea {
-  margin: 0;
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit; }
+  margin: 0; }
 
 button,
 input {
@@ -215,7 +210,8 @@ button::-moz-focus-inner,
 
 input[type="radio"],
 input[type="checkbox"] {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 0; }
 
 input[type="date"],
@@ -275,20 +271,48 @@ template {
 
 [hidden] {
   display: none !important; }
+/*------------------BASE-------------------------*/
+body {
+  font-size: 20px; }
 
-/*# sourceMappingURL=bootstrap-reboot.css.map */
+ul {
+  padding: 0px; }
+
+button {
+  margin: 0px 5px;
+  padding: 5px;
+  white-space: nowrap; }
+
 /*------------------LAYOUT-------------------------*/
 .l-head, .l-main, .l-footer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   padding: 15px; }
 
 .l-head {
   top: 0;
-  flex-direction: column;
-  align-items: center; }
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center; }
 
 .l-main {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   margin: 10px auto;
   max-width: 960px; }
 
@@ -297,18 +321,43 @@ template {
   bottom: 0;
   width: 100%;
   padding: 3px;
+  position: -webkit-sticky;
   position: sticky; }
 
 .l-icon-github {
   height: 32px;
   width: 32px;
-  border-radius: 16px;
+  -webkit-border-radius: 16px;
+          border-radius: 16px;
   display: block;
-  background-size: contain; }
+  -webkit-background-size: contain;
+          background-size: contain; }
 
 .l-menu {
   width: 100%;
   padding: 20px; }
+
+.l-breadcrumb {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 30px; }
+  .l-breadcrumb > .l-bcInput {
+    width: 100%;
+    font-size: inherit; }
+  .l-breadcrumb > .l-breadcrumb-menu {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-around;
+        -ms-flex-pack: distribute;
+            justify-content: space-around; }
 
 .l-copyright {
   font-size: 12px;
@@ -318,13 +367,26 @@ template {
 /*---------------MODULES-------------------------*/
 .file {
   font-size: 16px;
-  display: flex;
-  justify-content: space-between;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   width: 100%;
   padding: 5px;
   margin-bottom: 5px; }
+  .file > a {
+    text-indent: 2px;
+    display: block;
+    word-break: break-all; }
 
 /*--------------STATES-------------------------*/
+.is-hidden {
+  display: none; }
+
 /*-----------------THEME-------------------------*/
 /*-------------VARIABLES-------------------------*/
 body {
@@ -340,7 +402,8 @@ a {
 .l-head, .l-footer, .l-main {
   color: #000000;
   background-color: #e0f2cf;
-  box-shadow: 8px 8px 3px rgba(136, 136, 136, 0.5); }
+  -webkit-box-shadow: 8px 8px 3px rgba(136, 136, 136, 0.5);
+          box-shadow: 8px 8px 3px rgba(136, 136, 136, 0.5); }
 
 .l-menu {
   border: 1px #759952 solid; }
@@ -353,6 +416,6 @@ a {
     background-color: rgba(117, 153, 82, 0.2); }
 
 .l-icon-github {
-  background-image: url("/static/img/github.svg"); }
+  background-image: url("/img/github.svg"); }
   .l-icon-github:hover {
     background-color: white; }
