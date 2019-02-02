@@ -1,0 +1,7 @@
+{
+    "extends": ["webbylab", "plugin:security/recommended"],
+    "rules": {
+        "func-style": "off",
+        "react/require-default-props": 0
+    }
+}
