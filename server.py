@@ -2,7 +2,6 @@ import os
 import os.path
 import json
 from tornado import web, ioloop
-<<<<<<< HEAD
 
 
 class IndexHandler(web.RequestHandler):
@@ -64,11 +63,6 @@ class BrowseHandler(web.RequestHandler):
             return
         else:
             raise web.HTTPError(400)
-=======
-import IndexHandler
-import BrowseHandler
-import DownloadHandler
->>>>>>> dynamic_navigation
 
     async def post(self, uri):
         await self.get(uri)
